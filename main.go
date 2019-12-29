@@ -7,13 +7,13 @@ import (
 	"os"
 	"time"
 
-	proto "github.com/charlyzzz/typeracer/grpc"
+	proto "github.com/Charlyzzz/typeracer-client/grpc"
 	"github.com/eiannone/keyboard"
 	"google.golang.org/grpc"
 )
 
 const (
-	address = "192.168.1.97:9999"
+	address = "10.0.1.5:8080"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := proto.NewTypeRaceClient(conn)
+	c := proto.NewTypeRacerClient(conn)
 
 	err2 := keyboard.Open()
 	if err2 != nil {
@@ -38,7 +38,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1000)
 	defer cancel()
-	stream, err := c.SendMetrics(ctx)
+	stream, err := c.SendPlayerMetrics(ctx)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
@@ -47,8 +47,7 @@ func main() {
 		for {
 			in, err := stream.Recv()
 			if err == io.EOF {
-				exit <- struct{}{}
-				return
+				close(exit)
 			}
 			if err != nil {
 				log.Fatalf("Failed to receive a note : %v", err)
@@ -63,7 +62,7 @@ func main() {
 			if err != nil {
 				panic(err)
 			} else if key == keyboard.KeyCtrlC {
-				exit <- struct{}{}
+				close(exit)
 			}
 			strokes <- struct{}{}
 		}

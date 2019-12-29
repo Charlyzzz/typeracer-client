@@ -111,26 +111,27 @@ func (m *Scoreboard) GetReply() []*PlayerMetrics {
 }
 
 func init() {
-	proto.RegisterType((*PlayerMetrics)(nil), "PlayerMetrics")
-	proto.RegisterType((*Scoreboard)(nil), "Scoreboard")
+	proto.RegisterType((*PlayerMetrics)(nil), "typeracer.PlayerMetrics")
+	proto.RegisterType((*Scoreboard)(nil), "typeracer.Scoreboard")
 }
 
 func init() { proto.RegisterFile("typeracer.proto", fileDescriptor_bf4c6564c4848df5) }
 
 var fileDescriptor_bf4c6564c4848df5 = []byte{
-	// 182 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x4f, 0x3d, 0xab, 0xc2, 0x30,
-	0x14, 0x25, 0xef, 0xd1, 0x47, 0xdf, 0x2d, 0xef, 0x83, 0x4c, 0xa5, 0x53, 0x29, 0x0e, 0xc1, 0x21,
-	0x48, 0xdd, 0xfc, 0x0f, 0x85, 0x92, 0x0a, 0xce, 0x69, 0x7a, 0x87, 0x62, 0x6d, 0xc2, 0x4d, 0x3a,
-	0xe4, 0xdf, 0x0b, 0x8a, 0x8a, 0x3a, 0x9e, 0x73, 0x38, 0x5f, 0xf0, 0x17, 0xa2, 0x43, 0xd2, 0x06,
-	0x49, 0x3a, 0xb2, 0xc1, 0x56, 0x07, 0xf8, 0x69, 0x27, 0x1d, 0x91, 0x1a, 0x0c, 0x34, 0x1a, 0xcf,
-	0x0b, 0x48, 0x17, 0x8f, 0x34, 0xeb, 0x13, 0xe6, 0xac, 0x64, 0xe2, 0x5b, 0xdd, 0x31, 0x5f, 0xc3,
-	0xbf, 0x0f, 0x64, 0x8f, 0xe8, 0x5b, 0xa4, 0x66, 0x9c, 0x97, 0x80, 0xf9, 0x47, 0xc9, 0x44, 0xa2,
-	0xde, 0xf8, 0xaa, 0x06, 0xe8, 0x8c, 0x25, 0xec, 0xad, 0xa6, 0x81, 0xaf, 0x20, 0x21, 0x74, 0x53,
-	0xcc, 0x59, 0xf9, 0x29, 0xb2, 0xfa, 0x57, 0x3e, 0x95, 0xaa, 0xab, 0x58, 0xef, 0x20, 0xdd, 0x47,
-	0x87, 0x4a, 0x1b, 0xe4, 0x12, 0xb2, 0x0e, 0xe7, 0xe1, 0x36, 0xeb, 0xc5, 0x51, 0x64, 0xf2, 0x91,
-	0x2e, 0xd8, 0x86, 0xf5, 0x5f, 0x97, 0x3f, 0xdb, 0x73, 0x00, 0x00, 0x00, 0xff, 0xff, 0x38, 0xfb,
-	0xc8, 0x46, 0xe2, 0x00, 0x00, 0x00,
+	// 193 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2f, 0xa9, 0x2c, 0x48,
+	0x2d, 0x4a, 0x4c, 0x4e, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x84, 0x0b, 0x28,
+	0x85, 0x73, 0xf1, 0x06, 0xe4, 0x24, 0x56, 0xa6, 0x16, 0xf9, 0xa6, 0x96, 0x14, 0x65, 0x26, 0x17,
+	0x0b, 0x49, 0x71, 0x71, 0x94, 0x16, 0xa7, 0x16, 0xe5, 0x25, 0xe6, 0xa6, 0x4a, 0x30, 0x2a, 0x30,
+	0x6a, 0x70, 0x06, 0xc1, 0xf9, 0x42, 0x5a, 0x5c, 0x02, 0xc5, 0x25, 0x45, 0xf9, 0xd9, 0xa9, 0xc5,
+	0x01, 0xa9, 0x45, 0xbe, 0x99, 0x79, 0xa5, 0x25, 0xa9, 0x12, 0x4c, 0x0a, 0x8c, 0x1a, 0xac, 0x41,
+	0x18, 0xe2, 0x4a, 0x36, 0x5c, 0x5c, 0xc1, 0xc9, 0xf9, 0x45, 0xa9, 0x49, 0xf9, 0x89, 0x45, 0x29,
+	0x42, 0x7a, 0x5c, 0xac, 0x45, 0xa9, 0x05, 0x39, 0x95, 0x12, 0x8c, 0x0a, 0xcc, 0x1a, 0xdc, 0x46,
+	0x12, 0x7a, 0x08, 0x27, 0xa1, 0x58, 0x1f, 0x04, 0x51, 0x66, 0x14, 0xce, 0xc5, 0x19, 0x52, 0x59,
+	0x90, 0x1a, 0x04, 0x52, 0x21, 0xe4, 0xc5, 0x25, 0x18, 0x9c, 0x9a, 0x97, 0x82, 0xea, 0x4e, 0x9c,
+	0x46, 0x48, 0x89, 0x22, 0xc9, 0x20, 0x9c, 0xa0, 0xc4, 0xa0, 0xc1, 0x68, 0xc0, 0x98, 0xc4, 0x06,
+	0x0e, 0x01, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x6d, 0x82, 0xd1, 0x9f, 0x14, 0x01, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -141,45 +142,45 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// TypeRaceClient is the client API for TypeRace service.
+// TypeRacerClient is the client API for TypeRacer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type TypeRaceClient interface {
-	SendMetrics(ctx context.Context, opts ...grpc.CallOption) (TypeRace_SendMetricsClient, error)
+type TypeRacerClient interface {
+	SendPlayerMetrics(ctx context.Context, opts ...grpc.CallOption) (TypeRacer_SendPlayerMetricsClient, error)
 }
 
-type typeRaceClient struct {
+type typeRacerClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewTypeRaceClient(cc *grpc.ClientConn) TypeRaceClient {
-	return &typeRaceClient{cc}
+func NewTypeRacerClient(cc *grpc.ClientConn) TypeRacerClient {
+	return &typeRacerClient{cc}
 }
 
-func (c *typeRaceClient) SendMetrics(ctx context.Context, opts ...grpc.CallOption) (TypeRace_SendMetricsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_TypeRace_serviceDesc.Streams[0], "/TypeRace/SendMetrics", opts...)
+func (c *typeRacerClient) SendPlayerMetrics(ctx context.Context, opts ...grpc.CallOption) (TypeRacer_SendPlayerMetricsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_TypeRacer_serviceDesc.Streams[0], "/typeracer.TypeRacer/SendPlayerMetrics", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &typeRaceSendMetricsClient{stream}
+	x := &typeRacerSendPlayerMetricsClient{stream}
 	return x, nil
 }
 
-type TypeRace_SendMetricsClient interface {
+type TypeRacer_SendPlayerMetricsClient interface {
 	Send(*PlayerMetrics) error
 	Recv() (*Scoreboard, error)
 	grpc.ClientStream
 }
 
-type typeRaceSendMetricsClient struct {
+type typeRacerSendPlayerMetricsClient struct {
 	grpc.ClientStream
 }
 
-func (x *typeRaceSendMetricsClient) Send(m *PlayerMetrics) error {
+func (x *typeRacerSendPlayerMetricsClient) Send(m *PlayerMetrics) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *typeRaceSendMetricsClient) Recv() (*Scoreboard, error) {
+func (x *typeRacerSendPlayerMetricsClient) Recv() (*Scoreboard, error) {
 	m := new(Scoreboard)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -187,42 +188,42 @@ func (x *typeRaceSendMetricsClient) Recv() (*Scoreboard, error) {
 	return m, nil
 }
 
-// TypeRaceServer is the server API for TypeRace service.
-type TypeRaceServer interface {
-	SendMetrics(TypeRace_SendMetricsServer) error
+// TypeRacerServer is the server API for TypeRacer service.
+type TypeRacerServer interface {
+	SendPlayerMetrics(TypeRacer_SendPlayerMetricsServer) error
 }
 
-// UnimplementedTypeRaceServer can be embedded to have forward compatible implementations.
-type UnimplementedTypeRaceServer struct {
+// UnimplementedTypeRacerServer can be embedded to have forward compatible implementations.
+type UnimplementedTypeRacerServer struct {
 }
 
-func (*UnimplementedTypeRaceServer) SendMetrics(srv TypeRace_SendMetricsServer) error {
-	return status.Errorf(codes.Unimplemented, "method SendMetrics not implemented")
+func (*UnimplementedTypeRacerServer) SendPlayerMetrics(srv TypeRacer_SendPlayerMetricsServer) error {
+	return status.Errorf(codes.Unimplemented, "method SendPlayerMetrics not implemented")
 }
 
-func RegisterTypeRaceServer(s *grpc.Server, srv TypeRaceServer) {
-	s.RegisterService(&_TypeRace_serviceDesc, srv)
+func RegisterTypeRacerServer(s *grpc.Server, srv TypeRacerServer) {
+	s.RegisterService(&_TypeRacer_serviceDesc, srv)
 }
 
-func _TypeRace_SendMetrics_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(TypeRaceServer).SendMetrics(&typeRaceSendMetricsServer{stream})
+func _TypeRacer_SendPlayerMetrics_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(TypeRacerServer).SendPlayerMetrics(&typeRacerSendPlayerMetricsServer{stream})
 }
 
-type TypeRace_SendMetricsServer interface {
+type TypeRacer_SendPlayerMetricsServer interface {
 	Send(*Scoreboard) error
 	Recv() (*PlayerMetrics, error)
 	grpc.ServerStream
 }
 
-type typeRaceSendMetricsServer struct {
+type typeRacerSendPlayerMetricsServer struct {
 	grpc.ServerStream
 }
 
-func (x *typeRaceSendMetricsServer) Send(m *Scoreboard) error {
+func (x *typeRacerSendPlayerMetricsServer) Send(m *Scoreboard) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *typeRaceSendMetricsServer) Recv() (*PlayerMetrics, error) {
+func (x *typeRacerSendPlayerMetricsServer) Recv() (*PlayerMetrics, error) {
 	m := new(PlayerMetrics)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -230,14 +231,14 @@ func (x *typeRaceSendMetricsServer) Recv() (*PlayerMetrics, error) {
 	return m, nil
 }
 
-var _TypeRace_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "TypeRace",
-	HandlerType: (*TypeRaceServer)(nil),
+var _TypeRacer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "typeracer.TypeRacer",
+	HandlerType: (*TypeRacerServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "SendMetrics",
-			Handler:       _TypeRace_SendMetrics_Handler,
+			StreamName:    "SendPlayerMetrics",
+			Handler:       _TypeRacer_SendPlayerMetrics_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

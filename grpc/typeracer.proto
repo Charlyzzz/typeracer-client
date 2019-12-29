@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package typeracer;
+
+service TypeRacer {
+    rpc SendPlayerMetrics (stream PlayerMetrics) returns (stream Scoreboard) {}
+}
+
+message PlayerMetrics {
+    string username = 1;
+    int32 strokesPerMinute = 2;
+}
+
+message Scoreboard {
+    repeated PlayerMetrics reply = 1;
+}
