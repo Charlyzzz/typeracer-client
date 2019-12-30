@@ -1,2 +1,2 @@
-GOOS=linux go build -o build/linux github.com/charlyzzz/typeracer
-GOOS=darwin go build -o build/macos github.com/charlyzzz/typeracer
+GOOS=linux go build -o build/linux github.com/Charlyzzz/typeracer-client
+GOOS=darwin go build -o build/macos github.com/Charlyzzz/typeracer-client

@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	proto "github.com/Charlyzzz/typeracer-client/typeracer"
@@ -13,10 +15,10 @@ import (
 )
 
 const (
-	address = "10.0.1.5:8080"
+	address = "127.0.0.1:8080"
 )
 
-func listenKeyStrokes() (chan keyboard.Key, error) {
+func listenKeyStrokes() (<-chan keyboard.Key, error) {
 	strokes := make(chan keyboard.Key)
 	err := keyboard.Open()
 	if err != nil {
@@ -35,7 +37,7 @@ func listenKeyStrokes() (chan keyboard.Key, error) {
 	return strokes, nil
 }
 
-func pushMetrics(name string, stream proto.TypeRacer_SendPlayerMetricsClient) chan int {
+func pushMetrics(name string, stream proto.TypeRacer_SendPlayerMetricsClient) chan<- int {
 	metrics := make(chan int)
 	go func() {
 		defer close(metrics)
@@ -52,6 +54,9 @@ func pushMetrics(name string, stream proto.TypeRacer_SendPlayerMetricsClient) ch
 }
 
 func main() {
+	exit := make(chan os.Signal)
+	signal.Notify(exit, os.Interrupt, syscall.SIGTERM)
+
 	args := os.Args[1:]
 	if len(args) == 0 {
 		log.Fatalf("name is required!")
@@ -78,7 +83,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("scoreboard receive failed %v", err)
 			}
-			log.Printf("Got message %s", in.Reply[0].Username)
+			log.Printf("Got message %s", in)
 		}
 	}()
 	strokes, err := listenKeyStrokes()
@@ -87,13 +92,25 @@ func main() {
 	}
 	var strokeCount int
 	ticker := time.NewTicker(500 * time.Millisecond)
+
+	cleanUp := func() {
+		stream.CloseSend()
+		conn.Close()
+		os.Exit(0)
+	}
+
 	for {
 		select {
-		case <-strokes:
+		case key := <-strokes:
+			if key == keyboard.KeyCtrlC {
+				cleanUp()
+			}
 			strokeCount += 2 * 60
 		case <-ticker.C:
 			metrics <- strokeCount
 			strokeCount = 0
+		case <-exit:
+			cleanUp()
 		}
 	}
 }
