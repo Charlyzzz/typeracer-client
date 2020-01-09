@@ -2,6 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
+	tm "github.com/buger/goterm"
+	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"io"
 	"log"
 	"os"
@@ -37,13 +41,13 @@ func listenKeyStrokes() (<-chan keyboard.Key, error) {
 	return strokes, nil
 }
 
-func pushMetrics(name string, stream proto.TypeRacer_SendPlayerMetricsClient) chan<- int {
+func pushMetrics(name string, t *timestamp.Timestamp, stream proto.TypeRacer_SendPlayerMetricsClient) chan<- int {
 	metrics := make(chan int)
 	go func() {
 		defer close(metrics)
 		for {
 			m := <-metrics
-			metric := &proto.PlayerMetrics{Username: name, StrokesPerMinute: int32(m)}
+			metric := &proto.PlayerMetrics{Username: name, ConnectionTime: t, StrokesPerMinute: int32(m)}
 			err := stream.Send(metric)
 			if err != nil {
 				log.Fatalf("send player metrics failed %v", err)
@@ -62,7 +66,10 @@ func main() {
 		log.Fatalf("name is required!")
 	}
 	name := args[0]
-
+	connTime, err := ptypes.TimestampProto(time.Now())
+	if err != nil {
+		log.Fatalf("timestamp is invalid %v", err)
+	}
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect %v", err)
@@ -73,7 +80,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not send player metrics %v", err)
 	}
-	metrics := pushMetrics(name, stream)
+	metrics := pushMetrics(name, connTime, stream)
 	go func() {
 		for {
 			in, err := stream.Recv()
@@ -83,7 +90,13 @@ func main() {
 			if err != nil {
 				log.Fatalf("scoreboard receive failed %v", err)
 			}
-			log.Printf("Got message %s", in)
+			tm.Clear()
+			tm.MoveCursor(0, 0)
+			for i, p := range in.Reply {
+				player := fmt.Sprintf("#%d => %s: %d\n", i+1, p.Username, p.StrokesPerMinute)
+				tm.Print(player)
+			}
+			tm.Flush()
 		}
 	}()
 	strokes, err := listenKeyStrokes()
